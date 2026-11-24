@@ -1,0 +1,1481 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <title>درع الأمان الذكي — الفحص السيبراني والوعي الرقمي</title>
+  <style>
+    :root {
+      --bg: #070d19;
+      --surface: #0e172a;
+      --surface-2: #15223c;
+      --border: rgba(148, 163, 184, 0.18);
+      --text: #f1f5f9;
+      --muted: #94a3b8;
+      --accent: #38bdf8;
+      --accent-2: #22c55e;
+      --warn: #f59e0b;
+      --danger: #ef4444;
+      --radius: 16px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, "Segoe UI", Tahoma, Arial, sans-serif;
+      background: radial-gradient(circle at top right, #112240 0%, var(--bg) 55%);
+      color: var(--text);
+      line-height: 1.65;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .container {
+      width: min(1160px, 92%);
+      margin: 0 auto;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      background: rgba(7, 13, 25, 0.88);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 14px 0;
+    }
+
+    .brand {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .brand-title {
+      font-weight: 800;
+      font-size: 1.15rem;
+    }
+
+    .brand-sub {
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+    }
+
+    nav a, .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 9px 14px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text);
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: transform 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+    }
+
+    nav a:hover, .btn:hover {
+      border-color: var(--accent);
+      transform: translateY(-1px);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #0284c7, #0ea5e9);
+      border-color: transparent;
+      color: #fff;
+      font-weight: 700;
+    }
+
+    .btn-safe {
+      background: rgba(34, 197, 94, 0.14);
+      border-color: rgba(34, 197, 94, 0.45);
+      color: #86efac;
+    }
+
+    .btn-warn {
+      background: rgba(245, 158, 11, 0.14);
+      border-color: rgba(245, 158, 11, 0.45);
+      color: #fcd34d;
+    }
+
+    section {
+      padding: 26px 0;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+      gap: 18px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 18px;
+    }
+
+    .tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    .tab-btn {
+      padding: 10px 16px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: var(--surface-2);
+      color: var(--text);
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .tab-btn.active {
+      background: var(--accent);
+      color: #05111f;
+      border-color: var(--accent);
+    }
+
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    input[type="text"],
+    input[type="password"],
+    input[type="url"],
+    textarea,
+    select {
+      width: 100%;
+      padding: 11px 13px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: var(--bg);
+      color: var(--text);
+      font-size: 0.95rem;
+    }
+
+    textarea {
+      min-height: 95px;
+      resize: vertical;
+    }
+
+    .row-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .chip {
+      padding: 6px 11px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: var(--surface-2);
+      color: var(--text);
+      font-size: 0.82rem;
+      cursor: pointer;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 700;
+    }
+
+    .badge-safe {
+      background: rgba(34, 197, 94, 0.16);
+      color: #86efac;
+      border: 1px solid rgba(34, 197, 94, 0.4);
+    }
+
+    .badge-warn {
+      background: rgba(245, 158, 11, 0.16);
+      color: #fcd34d;
+      border: 1px solid rgba(245, 158, 11, 0.4);
+    }
+
+    .badge-danger {
+      background: rgba(239, 68, 68, 0.16);
+      color: #fca5a5;
+      border: 1px solid rgba(239, 68, 68, 0.4);
+    }
+
+    .transparency-note {
+      margin-top: 14px;
+      padding: 12px 14px;
+      border-radius: 12px;
+      background: rgba(56, 189, 248, 0.08);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      color: #cbd5e1;
+      font-size: 0.86rem;
+    }
+
+    .ad-slot {
+      border: 1px dashed rgba(148, 163, 184, 0.35);
+      background: rgba(15, 23, 42, 0.72);
+      border-radius: var(--radius);
+      padding: 14px 18px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+    }
+
+    .ad-label {
+      font-size: 0.75rem;
+      color: var(--muted);
+      border: 1px solid var(--border);
+      padding: 2px 8px;
+      border-radius: 6px;
+    }
+
+    .ad-media-preview {
+      max-width: 100%;
+      max-height: 140px;
+      border-radius: 10px;
+    }
+
+    .faq-item {
+      border: 1px solid var(--border);
+      background: var(--surface-2);
+      border-radius: 12px;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .faq-cat {
+      font-size: 0.78rem;
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    .check-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 12px;
+      border-radius: 12px;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+    }
+
+    .progress-bar {
+      height: 10px;
+      background: var(--bg);
+      border-radius: 999px;
+      overflow: hidden;
+      margin: 10px 0 14px;
+      border: 1px solid var(--border);
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #0ea5e9, #22c55e);
+      transition: width 0.25s ease;
+    }
+
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 60;
+      background: rgba(2, 6, 23, 0.78);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+
+    .modal-backdrop.open {
+      display: flex;
+    }
+
+    .modal-box {
+      width: min(560px, 100%);
+      max-height: 90vh;
+      overflow-y: auto;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 22px;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 24px 0 36px;
+      margin-top: 24px;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav-wrap">
+      <div class="brand">
+        <span class="brand-title">درع الأمان الذكي</span>
+        <span class="brand-sub">منصة الفحص السيبراني والوعي الرقمي</span>
+      </div>
+      <nav aria-label="التنقل الرئيسي">
+        <a href="#scanner-section">أدوات الفحص</a>
+        <a href="#ai-assistant-section">المساعد الذكي</a>
+        <a href="#cyber-100-questions">بنك الأسئلة</a>
+        <a href="#checklist-section">تأمين حساباتك</a>
+        <a href="#awareness-section">أساليب الاحتيال</a>
+        <button type="button" class="btn" id="openOwnerPortalBtn">بوابة المالك</button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- مساحة إعلانية علوية -->
+    <section aria-label="إعلان علوي">
+      <div class="ad-slot" data-ad-zone="top">
+        <div>
+          <span class="ad-label">إعلان</span>
+          <strong class="ad-title" style="display:block; margin-top:6px;">مساحة إعلانية</strong>
+          <span class="ad-desc" style="color:var(--muted); font-size:0.88rem;">تواصل معنا لحجز مساحة إعلانية آمنة ومتوافقة.</span>
+        </div>
+        <div class="ad-visual"></div>
+        <a class="btn btn-primary ad-cta" href="https://wa.me/966532970100" target="_blank" rel="noopener noreferrer nofollow">فتح</a>
+      </div>
+    </section>
+
+    <!-- أدوات الفحص -->
+    <section id="scanner-section">
+      <div class="card">
+        <h2>أدوات الفحص الفوري</h2>
+        <div class="tabs" role="tablist">
+          <button type="button" class="tab-btn active" data-tab="url">فاحص الروابط</button>
+          <button type="button" class="tab-btn" data-tab="msg">فاحص الرسائل</button>
+          <button type="button" class="tab-btn" data-tab="pwd">كلمات المرور</button>
+        </div>
+
+        <!-- فاحص الروابط -->
+        <div id="tab-url" class="tab-panel">
+          <h3>فحص الروابط والمواقع المشبوهة</h3>
+          <p style="color:var(--muted);">أدخل أي رابط للتحقق من مؤشرات التصيد الاحتيالي أو الروابط المختصرة المجهولة.</p>
+          <label for="urlInput">الرابط المراد فحصه</label>
+          <input type="text" id="urlInput" placeholder="https://example.com" dir="ltr" />
+          <div class="row-actions">
+            <button type="button" class="btn btn-primary" id="checkUrlBtn">فحص الرابط</button>
+          </div>
+          <div class="chips">
+            <button type="button" class="chip" data-sample-url="http://secure-login-update-verify.example.com/auth">تجربة سريعة: رابط تصيد محتمل</button>
+            <button type="button" class="chip" data-sample-url="https://bit.ly/3xSampleLink">رابط مختصر مشبوه</button>
+            <button type="button" class="chip" data-sample-url="https://www.google.com">رابط رسمي آمن</button>
+          </div>
+        </div>
+
+        <!-- فاحص الرسائل -->
+        <div id="tab-msg" class="tab-panel hidden">
+          <h3>كشف رسائل التصيد والاحتيال</h3>
+          <p style="color:var(--muted);">الصق نص رسالة SMS أو واتساب أو بريد إلكتروني لتحليل الأساليب الاحتيالية فيها.</p>
+          <label for="msgInput">نص الرسالة</label>
+          <textarea id="msgInput" placeholder="الصق نص الرسالة هنا..."></textarea>
+          <div class="chips">
+            <button type="button" class="chip" data-sample-msg="عزيزي العميل تم إيقاف حسابك البنكي مؤقتاً، يرجى تحديث بياناتك فوراً وعدم مشاركة رمز OTP مع أي شخص.">رسالة انتحال بنكي و OTP</button>
+            <button type="button" class="chip" data-sample-msg="مبروك لقد ربحت جائزة نقدية فورية! ادفع رسوم الشحن عبر الرابط التالي لاستلام جائزتك.">رسالة جائزة وهمية</button>
+          </div>
+          <div class="row-actions">
+            <button type="button" class="btn btn-primary" id="checkMsgBtn">تحليل الرسالة الآن</button>
+          </div>
+        </div>
+
+        <!-- كلمات المرور -->
+        <div id="tab-pwd" class="tab-panel hidden">
+          <h3>فاحص ومولد كلمات المرور القوية</h3>
+          <p style="color:var(--muted);">اختبر قوة كلمة المرور محلياً في متصفحك أو ولّد كلمة مرور عشوائية صعبة التخمين.</p>
+          <label for="pwdInput">كلمة المرور</label>
+          <input type="text" id="pwdInput" placeholder="أدخل كلمة مرور لاختبارها أو اضغط توليد" dir="ltr" autocomplete="off" />
+          <div class="row-actions">
+            <button type="button" class="btn btn-primary" id="checkPwdBtn">فحص القوة</button>
+            <button type="button" class="btn btn-safe" id="genPwdBtn">توليد كلمة قوية</button>
+            <button type="button" class="btn" id="askAiPwdBtn">استشارة الذكاء الاصطناعي</button>
+          </div>
+        </div>
+
+        <!-- نتيجة الفحص الفوري -->
+        <div class="card" style="margin-top:20px; background:var(--surface-2);" id="scanResultBox">
+          <div style="display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:10px;">
+            <h3 style="margin:0;">نتيجة الفحص الفوري</h3>
+            <span class="badge badge-safe" id="resultBadge">آمن</span>
+          </div>
+          <p id="resultSummary" style="margin:10px 0 0; color:var(--muted);">بانتظار إدخال رابط أو رسالة أو كلمة مرور لإجراء الفحص الفوري.</p>
+          <ul id="resultDetails" style="margin:10px 0 0; padding-right:18px; color:var(--text);"></ul>
+          <div class="row-actions">
+            <button type="button" class="btn" id="deepAiBtn">تحليل أعمق بالذكاء الاصطناعي وخطة تصرف</button>
+            <button type="button" class="btn" id="copyReportBtn">نسخ التقرير للتحذير</button>
+          </div>
+          <div class="transparency-note">
+            <strong>ملاحظة شفافية وحدود الفحص:</strong> جميع الفحوصات وتوليد كلمات المرور تتم محلياً داخل متصفحك دون إرسال بياناتك السرية إلى خوادمنا. نتيجة فحص الروابط والرسائل مؤشر توعوي أولي ولا تغني عن التحقق من النطاق الرسمي أو مراجعة الجهة المعنية.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- المستشار السيبراني الذكي + مساحة جانبية -->
+    <section id="ai-assistant-section">
+      <div class="grid-2">
+        <div class="card">
+          <div style="display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:10px;">
+            <div>
+              <h2 style="margin:0;">المستشار السيبراني الذكي</h2>
+              <span style="color:var(--muted); font-size:0.88rem;">محرك ذكي فوري + أسئلة سريعة + إحالة لذكاء جوجل</span>
+            </div>
+            <a class="btn" href="https://gemini.google.com" target="_blank" rel="noopener noreferrer">ذكاء جوجل</a>
+          </div>
+
+          <p style="margin-top:12px;">
+            أهلاً بك في <strong>المستشار السيبراني الذكي</strong>. اكتب سؤالك، أو الصق رابطاً أو رسالة مشبوهة، أو اختر سؤالاً من <strong>بنك الأسئلة</strong> بالأسفل لأعطيك إجابة وخطة حماية فورية.
+          </p>
+
+          <label for="aiPromptInput">سؤالك أو النص المطلوب تحليله</label>
+          <textarea id="aiPromptInput" placeholder="مثال: ماذا أفعل إذا شاركت رمز OTP بالخطأ؟"></textarea>
+          <div class="row-actions">
+            <button type="button" class="btn btn-primary" id="runAiBtn">إرسال للمستشار الفوري</button>
+            <button type="button" class="btn" id="clearAiBtn">مسح</button>
+          </div>
+
+          <div class="chips">
+            <button type="button" class="chip" data-quick-q="اتصال يطلب رمز OTP؟ ما التصرف الصحيح؟">اتصال يطلب رمز OTP؟</button>
+            <button type="button" class="chip" data-quick-q="فتحت رابطاً مشبوهاً! ما هي خطوات الحماية الفورية؟">فتحت رابطاً مشبوهاً!</button>
+            <button type="button" class="chip" data-quick-q="كيف أفعّل المصادقة الثنائية 2FA بأمان؟">المصادقة الثنائية 2FA</button>
+          </div>
+
+          <div class="card" style="margin-top:14px; background:var(--bg);">
+            <strong>الاستجابة الفورية:</strong>
+            <p id="aiReplyText" style="margin:8px 0 0; color:var(--muted);">اختر سؤالاً سريعاً أو اكتب سؤالك للحصول على خطة حماية عملية.</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>مساحة إعلانية جانبية</h3>
+          <div class="ad-slot" data-ad-zone="side" style="margin-top:12px;">
+            <div>
+              <span class="ad-label">إعلان</span>
+              <strong class="ad-title" style="display:block; margin-top:6px;">مساحة إعلانية</strong>
+              <span class="ad-desc" style="color:var(--muted); font-size:0.88rem;">إعلان جانبي متاح للإدارة عبر بوابة المالك.</span>
+            </div>
+            <div class="ad-visual"></div>
+            <a class="btn btn-primary ad-cta" href="https://wa.me/966532970100" target="_blank" rel="noopener noreferrer nofollow">فتح</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- بنك الأسئلة مع بحث وتصنيف -->
+    <section id="cyber-100-questions">
+      <div class="card">
+        <h2>بنك الأسئلة الشائعة في الأمن السيبراني</h2>
+        <p style="color:var(--muted);">ابحث أو اختر تصنيفاً، واضغط على زر <strong>اسأل الذكاء الاصطناعي</strong> لإرسال السؤال إلى المستشار الذكي فوراً.</p>
+
+        <div class="grid-2" style="margin-bottom:14px;">
+          <div>
+            <label for="faqSearchInput">بحث في الأسئلة</label>
+            <input type="text" id="faqSearchInput" placeholder="ابحث عن كلمة مثل: OTP، واي فاي، كلمة مرور، تصيد..." />
+          </div>
+          <div>
+            <label for="faqCategorySelect">التصنيف</label>
+            <select id="faqCategorySelect">
+              <option value="all">جميع التصنيفات</option>
+              <option value="accounts">الحسابات والـ OTP</option>
+              <option value="phishing">الاحتيال والروابط</option>
+              <option value="network">الشبكات والواي فاي</option>
+              <option value="devices">الأجهزة والتطبيقات</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="grid-2" id="faqListContainer"></div>
+      </div>
+    </section>
+
+    <!-- قائمة التحقق -->
+    <section id="checklist-section">
+      <div class="card">
+        <h2>قائمة التحقق السريعة لتأمين حساباتك</h2>
+        <p style="color:var(--muted);">حدّد الخطوات التي طبقتها لقياس مستوى جاهزيتك الرقمية.</p>
+        <div style="display:flex; align-items:center; justify-content:space-between;">
+          <span>نسبة الحصانة</span>
+          <strong id="immunityPercent">0%</strong>
+        </div>
+        <div class="progress-bar">
+          <div class="progress-fill" id="immunityBar"></div>
+        </div>
+
+        <div class="grid-2" id="checklistItems">
+          <label class="check-item">
+            <input type="checkbox" class="immunity-check" />
+            <span><strong>تفعيل المصادقة الثنائية (2FA):</strong> استخدام تطبيق مصادقة بدلاً من الاعتماد على رسائل SMS فقط.</span>
+          </label>
+          <label class="check-item">
+            <input type="checkbox" class="immunity-check" />
+            <span><strong>كلمات مرور فريدة:</strong> عدم تكرار نفس كلمة المرور بين البريد الإلكتروني والبنك ومواقع التواصل.</span>
+          </label>
+          <label class="check-item">
+            <input type="checkbox" class="immunity-check" />
+            <span><strong>تحديث الأنظمة والتطبيقات:</strong> تثبيت التحديثات الأمنية فور توفرها لسد الثغرات المعروفة.</span>
+          </label>
+          <label class="check-item">
+            <input type="checkbox" class="immunity-check" />
+            <span><strong>عدم مشاركة رموز التحقق (OTP):</strong> عدم إعطاء أي رمز تحقق لأي متصل أو جهة تدّعي الدعم الفني.</span>
+          </label>
+        </div>
+
+        <div class="row-actions">
+          <button type="button" class="btn" id="resetChecklistBtn">إعادة تعيين القائمة</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- أساليب الاحتيال -->
+    <section id="awareness-section">
+      <div class="card">
+        <h2>أبرز أساليب الاحتيال الرقمي وكيفية تفاديها</h2>
+        <p style="color:var(--muted);">تعرّف على أكثر الأساليب شيوعاً لتكتشفها قبل أن تقع ضحية لها.</p>
+        <div class="grid-3" style="margin-top:14px;">
+          <div class="faq-item">
+            <h3>التصيد الاحتيالي (Phishing)</h3>
+            <p style="margin:0; color:var(--muted);">رسائل أو روابط وهمية تنتحل صفة بنوك أو منصات رسمية لسرقة بيانات الدخول أو رموز التحقق.</p>
+            <p style="margin:0; font-size:0.86rem;"><strong>ماذا تفعل فوراً؟</strong> لا تدخل بياناتك عبر الرابط، وغيّر كلمة المرور فوراً من التطبيق الرسمي.</p>
+            <button type="button" class="btn ask-ai-btn" data-q="كيف أتعرف على روابط التصيد الاحتيالي وماذا أفعل فوراً إذا أدخلت بياناتي فيها؟">اسأل الذكاء الاصطناعي</button>
+          </div>
+          <div class="faq-item">
+            <h3>انتحال الصفة وطلب OTP</h3>
+            <p style="margin:0; color:var(--muted);">مكالمات أو رسائل تدّعي التوظيف أو الجوائز أو تحديث البيانات وتطلب رمز التحقق المرسل لهاتفك.</p>
+            <p style="margin:0; font-size:0.86rem;"><strong>ماذا تفعل فوراً؟</strong> أغلق المكالمة فوراً، ولا تشارك رمز التحقق مطلقاً مع أي شخص.</p>
+            <button type="button" class="btn ask-ai-btn" data-q="ماذا أفعل إذا تلقيت اتصالاً يطلب رمز OTP أو شاركته بالخطأ؟">اسأل الذكاء الاصطناعي</button>
+          </div>
+          <div class="faq-item">
+            <h3>شبكات الواي فاي العامة</h3>
+            <p style="margin:0; color:var(--muted);">تجنّب الدخول للحسابات البنكية أو الحساسة عبر شبكات Wi-Fi العامة غير المشفرة أو المجهولة.</p>
+            <p style="margin:0; font-size:0.86rem;"><strong>ماذا تفعل فوراً؟</strong> انتقل لبيانات الهاتف الخلوية أو أوقف الجلسات النشطة وغيّر كلمات المرور.</p>
+            <button type="button" class="btn ask-ai-btn" data-q="ما هي مخاطر شبكات الواي فاي العامة وكيف أحمي حساباتي عند استخدامها؟">اسأل الذكاء الاصطناعي</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- مساحة إعلانية سفلية -->
+    <section aria-label="إعلان سفلي">
+      <div class="ad-slot" data-ad-zone="bottom">
+        <div>
+          <span class="ad-label">إعلان</span>
+          <strong class="ad-title" style="display:block; margin-top:6px;">مساحة إعلانية</strong>
+          <span class="ad-desc" style="color:var(--muted); font-size:0.88rem;">إعلان سفلي متاح للتحديث من لوحة تحكم المالك.</span>
+        </div>
+        <div class="ad-visual"></div>
+        <a class="btn btn-primary ad-cta" href="https://wa.me/966532970100" target="_blank" rel="noopener noreferrer nofollow">فتح</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container" style="display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:12px;">
+      <div>
+        <strong>درع الأمان الذكي</strong> — منصة مجانية للتوعية والحماية الرقمية.
+      </div>
+      <div style="display:flex; flex-wrap:wrap; gap:12px; align-items:center;">
+        <button type="button" class="btn" id="footerOwnerBtn" style="padding:6px 12px;">بوابة المالك</button>
+        <span>•</span>
+        <a href="#ai-assistant-section">المساعد الذكي</a>
+        <span>•</span>
+        <a href="#cyber-100-questions">بنك الأسئلة</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- نافذة بوابة المالك ولوحة التحكم -->
+  <div class="modal-backdrop" id="ownerModal" role="dialog" aria-modal="true" aria-labelledby="ownerModalTitle">
+    <div class="modal-box">
+      <div style="display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:14px;">
+        <h3 id="ownerModalTitle" style="margin:0;">بوابة الدخول</h3>
+        <button type="button" class="btn" id="closeOwnerModalBtn">إغلاق</button>
+      </div>
+
+      <!-- نموذج تسجيل الدخول -->
+      <form id="ownerLoginForm">
+        <p style="color:var(--muted); margin-top:0;">أدخل بيانات الدخول للمتابعة</p>
+        <label for="ownerUsername">اسم المستخدم</label>
+        <input type="text" id="ownerUsername" autocomplete="username" required />
+
+        <label for="ownerPassword" style="margin-top:10px;">رمز الدخول</label>
+        <input type="password" id="ownerPassword" autocomplete="current-password" required />
+
+        <p id="ownerLoginError" style="color:#fca5a5; font-size:0.88rem; margin:10px 0 0; min-height:22px;"></p>
+
+        <div class="row-actions">
+          <button type="submit" class="btn btn-primary">دخول</button>
+        </div>
+      </form>
+
+      <!-- لوحة التحكم بعد الدخول -->
+      <div id="ownerDashboard" class="hidden">
+        <div style="display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:14px;">
+          <span class="badge badge-safe">تم الدخول بنجاح</span>
+          <button type="button" class="btn btn-warn" id="ownerLogoutBtn">خروج</button>
+        </div>
+
+        <div class="card" style="background:var(--surface-2); margin-bottom:14px;">
+          <h4 style="margin:0 0 8px;">تغيير رمز الدخول</h4>
+          <label for="newOwnerPass">رمز الدخول الجديد (8 أحرف فأكثر مع حروف وأرقام ورموز)</label>
+          <input type="text" id="newOwnerPass" dir="ltr" placeholder="أدخل رمزاً جديداً أو ولّد رمزاً قوياً" />
+          <div class="row-actions">
+            <button type="button" class="btn btn-safe" id="genOwnerPassBtn">توليد رمز قوي</button>
+            <button type="button" class="btn btn-primary" id="saveOwnerPassBtn">حفظ</button>
+          </div>
+          <p id="passChangeMsg" style="margin:8px 0 0; font-size:0.86rem; color:var(--muted);"></p>
+        </div>
+
+        <div class="card" style="background:var(--surface-2);">
+          <h4 style="margin:0 0 8px;">التحكم في المساحة الإعلانية (رابط أو ملف: صورة / GIF / فيديو قصير / PDF)</h4>
+
+          <label for="adTitleInput">عنوان الإعلان</label>
+          <input type="text" id="adTitleInput" placeholder="مثال: عرض خاص أو تنبيه توعوي" />
+
+          <label for="adDescInput" style="margin-top:10px;">وصف مختصر للإعلان</label>
+          <input type="text" id="adDescInput" placeholder="وصف قصير وواضح للزائر" />
+
+          <label for="adMediaUrlInput" style="margin-top:10px;">إضافة إعلان على شكل رابط (رابط صورة أو GIF أو فيديو قصير - HTTPS فقط)</label>
+          <input type="url" id="adMediaUrlInput" dir="ltr" placeholder="https://example.com/banner.png" />
+
+          <label for="adFileInput" style="margin-top:10px;">أو رفع ملف من الجهاز (صورة / GIF / فيديو قصير 5-10 ثواني / PDF)</label>
+          <input type="file" id="adFileInput" accept="image/png,image/jpeg,image/webp,image/gif,video/mp4,video/webm,application/pdf" />
+          <div id="adFileStatus" style="font-size:0.84rem; color:var(--muted); margin-top:4px;">لم يتم اختيار ملف بعد.</div>
+
+          <label for="adTargetUrlInput" style="margin-top:10px;">رابط التوجيه عند الضغط على الإعلان (الافتراضي واتساب 0532970100)</label>
+          <input type="url" id="adTargetUrlInput" dir="ltr" value="https://wa.me/966532970100" />
+
+          <label for="adZoneSelect" style="margin-top:10px;">مكان عرض الإعلان</label>
+          <select id="adZoneSelect">
+            <option value="all">جميع المساحات (علوي + جانبي + سفلي)</option>
+            <option value="top">المساحة العلوية فقط</option>
+            <option value="side">المساحة الجانبية فقط</option>
+            <option value="bottom">المساحة السفلية فقط</option>
+          </select>
+
+          <div class="row-actions">
+            <button type="button" class="btn btn-primary" id="saveAdBtn">حفظ الإعلان</button>
+            <button type="button" class="btn" id="clearAdBtn">تفريغ</button>
+          </div>
+          <p id="adSaveMsg" style="margin:8px 0 0; font-size:0.86rem; color:var(--muted);"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      "use strict";
+
+      // بصمة SHA-256 الافتراضية لرمز الدخول (يُفضّل تغييرها من لوحة التحكم وتحديث الثابت قبل النشر)
+      const DEFAULT_PASS_HASH = "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918";
+      const HASH_STORAGE_KEY = "smart_shield_owner_hash_v1";
+      const SESSION_AUTH_KEY = "smart_shield_owner_auth_v1";
+      const AD_STORAGE_KEY = "smart_shield_ad_config_v1";
+      const DEFAULT_CTA_URL = "https://wa.me/966532970100";
+
+      let failedAttempts = 0;
+      let lockUntil = 0;
+      let uploadedMediaDataUrl = "";
+      let uploadedMediaMime = "";
+      let uploadedMediaName = "";
+      let lastReportText = "";
+
+      // دالة حساب SHA-256 محلياً
+      async function sha256Hex(plainText) {
+        const enc = new TextEncoder();
+        const buf = await crypto.subtle.digest("SHA-256", enc.encode(plainText));
+        return Array.from(new Uint8Array(buf))
+          .map((byte) => byte.toString(16).padStart(2, "0"))
+          .join("");
+      }
+
+      // توليد كلمة مرور عشوائية قوية باستخدام crypto.getRandomValues
+      function generateStrongPassword(length = 16) {
+        const chars = "ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz23456789!@#$%^&*_-+=";
+        const arr = new Uint32Array(length);
+        crypto.getRandomValues(arr);
+        let out = "";
+        for (let i = 0; i < length; i++) {
+          out += chars[arr[i] % chars.length];
+        }
+        return out;
+      }
+
+      // التحقق من أمان الروابط (يسمح فقط بـ https و http)
+      function sanitizeHttpUrl(raw, fallback = "") {
+        const val = (raw || "").trim();
+        if (!val) return fallback;
+        try {
+          const parsed = new URL(val);
+          if (parsed.protocol === "https:" || parsed.protocol === "http:") {
+            return parsed.href;
+          }
+          return fallback;
+        } catch {
+          return fallback;
+        }
+      }
+
+      function getActiveOwnerHash() {
+        const saved = localStorage.getItem(HASH_STORAGE_KEY);
+        return saved && /^[0-9a-f]{64}$/i.test(saved) ? saved : DEFAULT_PASS_HASH;
+      }
+
+      function isAuthenticated() {
+        return sessionStorage.getItem(SESSION_AUTH_KEY) === "true";
+      }
+
+      // التنقل بين تبويبات أدوات الفحص
+      const tabButtons = document.querySelectorAll(".tab-btn");
+      const tabPanels = {
+        url: document.getElementById("tab-url"),
+        msg: document.getElementById("tab-msg"),
+        pwd: document.getElementById("tab-pwd")
+      };
+
+      tabButtons.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const target = btn.getAttribute("data-tab");
+          tabButtons.forEach((b) => b.classList.remove("active"));
+          btn.classList.add("active");
+          Object.keys(tabPanels).forEach((key) => {
+            tabPanels[key].classList.toggle("hidden", key !== target);
+          });
+        });
+      });
+
+      // عرض نتيجة الفحص بشكل آمن عبر textContent
+      const resultBadge = document.getElementById("resultBadge");
+      const resultSummary = document.getElementById("resultSummary");
+      const resultDetails = document.getElementById("resultDetails");
+
+      function renderScanResult(level, titleText, summaryText, points) {
+        resultBadge.className = "badge";
+        if (level === "danger") {
+          resultBadge.classList.add("badge-danger");
+          resultBadge.textContent = "خطر مرتفع";
+        } else if (level === "warn") {
+          resultBadge.classList.add("badge-warn");
+          resultBadge.textContent = "تحذير";
+        } else {
+          resultBadge.classList.add("badge-safe");
+          resultBadge.textContent = "آمن";
+        }
+
+        resultSummary.textContent = summaryText;
+        resultDetails.innerHTML = "";
+        points.forEach((pt) => {
+          const li = document.createElement("li");
+          li.textContent = pt;
+          resultDetails.appendChild(li);
+        });
+
+        lastReportText = [
+          `درع الأمان الذكي — ${titleText}`,
+          `الحالة: ${resultBadge.textContent}`,
+          `الملخص: ${summaryText}`,
+          ...points.map((p) => `- ${p}`)
+        ].join("
+");
+      }
+
+      // فاحص الروابط
+      const urlInput = document.getElementById("urlInput");
+      document.querySelectorAll("[data-sample-url]").forEach((chip) => {
+        chip.addEventListener("click", () => {
+          urlInput.value = chip.getAttribute("data-sample-url") || "";
+        });
+      });
+
+      document.getElementById("checkUrlBtn").addEventListener("click", () => {
+        const raw = urlInput.value.trim();
+        if (!raw) {
+          renderScanResult("warn", "فحص رابط", "يرجى إدخال رابط للتحقق منه.", ["الحقل فارغ حالياً."]);
+          return;
+        }
+
+        const lowered = raw.toLowerCase();
+        if (lowered.startsWith("javascript:") || lowered.startsWith("data:") || lowered.startsWith("vbscript:")) {
+          renderScanResult("danger", "فحص رابط", "تم رصد بروتوكول غير آمن أو قابل للتنفيذ في الرابط.", [
+            "يُمنع فتح أو النقر على روابط تبدأ بـ javascript: أو data:.",
+            "قد يُستخدم هذا النوع لتنفيذ أكواد ضارة في المتصفح."
+          ]);
+          return;
+        }
+
+        let parsed;
+        try {
+          parsed = new URL(raw.startsWith("http://") || raw.startsWith("https://") ? raw : "https://" + raw);
+        } catch {
+          renderScanResult("warn", "فحص رابط", "صيغة الرابط غير مكتملة أو غير صالحة.", [
+            "تأكد من كتابة النطاق بشكل صحيح مثل https://example.com."
+          ]);
+          return;
+        }
+
+        const findings = [];
+        let riskScore = 0;
+
+        if (parsed.protocol !== "https:") {
+          riskScore += 1;
+          findings.push("الرابط لا يستخدم بروتوكول HTTPS المشفر.");
+        }
+
+        const shorteners = ["bit.ly", "tinyurl.com", "t.co", "goo.gl", "ow.ly", "is.gd", "rb.gy", "cutt.ly"];
+        if (shorteners.some((s) => parsed.hostname === s || parsed.hostname.endsWith("." + s))) {
+          riskScore += 1;
+          findings.push("الرابط مختصر، مما يخفي الوجهة النهائية قبل الفتح.");
+        }
+
+        const suspiciousWords = ["login", "verify", "update", "secure", "bank", "wallet", "otp", "free", "prize", "account"];
+        const matchedWords = suspiciousWords.filter((w) => (parsed.hostname + parsed.pathname).toLowerCase().includes(w));
+        if (matchedWords.length >= 2) {
+          riskScore += 2;
+          findings.push("يحتوي الرابط على كلمات شائعة في صفحات التصيد مثل: " + matchedWords.join("، "));
+        } else if (matchedWords.length === 1) {
+          riskScore += 1;
+          findings.push("يحتوي الرابط على كلمة مرتبطة بالحسابات أو التحديث: " + matchedWords[0]);
+        }
+
+        if (/^\d{1,3}(\.\d{1,3}){3}$/.test(parsed.hostname)) {
+          riskScore += 2;
+          findings.push("الرابط يستخدم عنوان IP مباشرة بدلاً من اسم نطاق معروف.");
+        }
+
+        if (parsed.hostname.includes("xn--")) {
+          riskScore += 2;
+          findings.push("النطاق يحتوي على Punycode وقد يُستخدم لانتحال حروف متشابهة.");
+        }
+
+        if (findings.length === 0) {
+          findings.push("يستخدم الرابط بروتوكول HTTPS ولا تظهر فيه مؤشرات تصيد واضحة من الفحص الأولي.");
+          findings.push("احرص دائماً على التحقق من تطابق النطاق الرسمي للجهة المطلوبة.");
+          renderScanResult("safe", "فحص رابط", "لم تظهر مؤشرات خطورة واضحة في الفحص الأولي للرابط.", findings);
+        } else if (riskScore >= 3) {
+          renderScanResult("danger", "فحص رابط", "يوجد عدة مؤشرات مشبوهة في هذا الرابط، يُنصح بالحذر الشديد.", findings);
+        } else {
+          renderScanResult("warn", "فحص رابط", "يوجد مؤشر أو أكثر يستدعي التحقق قبل فتح الرابط.", findings);
+        }
+      });
+
+      // فاحص الرسائل
+      const msgInput = document.getElementById("msgInput");
+      document.querySelectorAll("[data-sample-msg]").forEach((chip) => {
+        chip.addEventListener("click", () => {
+          msgInput.value = chip.getAttribute("data-sample-msg") || "";
+        });
+      });
+
+      document.getElementById("checkMsgBtn").addEventListener("click", () => {
+        const text = msgInput.value.trim();
+        if (!text) {
+          renderScanResult("warn", "فحص رسالة", "يرجى لصق نص الرسالة لتحليله.", ["لم يتم إدخال نص."]);
+          return;
+        }
+
+        const lower = text.toLowerCase();
+        const alerts = [];
+        let score = 0;
+
+        if (lower.includes("otp") || text.includes("رمز التحقق") || text.includes("كود التفعيل")) {
+          score += 2;
+          alerts.push("الرسالة تذكر رمز التحقق (OTP) — لا تشارك هذا الرمز مع أي شخص إطلاقاً.");
+        }
+        if (text.includes("إيقاف") || text.includes("تجميد") || text.includes("فوراً") || text.includes("عاجل") || text.includes("خلال ساعات")) {
+          score += 1;
+          alerts.push("تستخدم الرسالة أسلوب الاستعجال أو التهديد بإيقاف الحساب لدفعك لتصرف سريع.");
+        }
+        if (text.includes("جائزة") || text.includes("ربحت") || text.includes("رسوم") || text.includes("شحن") || text.includes("توظيف")) {
+          score += 2;
+          alerts.push("تظهر مؤشرات وعود بجوائز أو عروض أو طلب رسوم/بيانات.");
+        }
+        if (/https?:\/\/|www\.|bit\.ly|tinyurl/i.test(text)) {
+          score += 1;
+          alerts.push("تحتوي الرسالة على رابط؛ تحقق من مصدره ولا تدخل بياناتك عبر روابط غير موثوقة.");
+        }
+
+        if (alerts.length === 0) {
+          renderScanResult("safe", "فحص رسالة", "لا تظهر كلمات أو أساليب احتيال شائعة في نص الرسالة.", [
+            "رغم ذلك، تأكد دائماً من هوية المرسل قبل مشاركة أي بيانات شخصية."
+          ]);
+        } else if (score >= 3) {
+          renderScanResult("danger", "فحص رسالة", "الرسالة تحمل مؤشرات قوية لرسائل الاحتيال أو التصيد.", alerts);
+        } else {
+          renderScanResult("warn", "فحص رسالة", "تحتوي الرسالة على مؤشرات تستدعي الحذر والتحقق من المصدر.", alerts);
+        }
+      });
+
+      // فاحص ومولد كلمات المرور
+      const pwdInput = document.getElementById("pwdInput");
+
+      function evaluatePassword(pwd) {
+        const tips = [];
+        let points = 0;
+
+        if (pwd.length >= 12) points += 2;
+        else if (pwd.length >= 8) points += 1;
+        else tips.push("اجعل طول كلمة المرور 12 حرفاً أو أكثر لزيادة الحماية.");
+
+        if (/[a-z]/.test(pwd)) points += 1;
+        else tips.push("أضف أحرفاً إنجليزية صغيرة.");
+
+        if (/[A-Z]/.test(pwd)) points += 1;
+        else tips.push("أضف أحرفاً إنجليزية كبيرة.");
+
+        if (/\d/.test(pwd)) points += 1;
+        else tips.push("أضف أرقاماً.");
+
+        if (/[^A-Za-z0-9]/.test(pwd)) points += 1;
+        else tips.push("أضف رموزاً خاصة مثل ! @ # $ %.");
+
+        if (/1234|password|qwerty|admin|abcd|0000/i.test(pwd)) {
+          points = Math.max(0, points - 2);
+          tips.push("تجنّب الأنماط المتكررة أو الكلمات الشائعة يسهل تخمينها.");
+        }
+
+        if (points >= 5) {
+          return {
+            level: "safe",
+            summary: "كلمة مرور قوية وجيدة جداً وفق معايير الطول والتنوع.",
+            tips: tips.length ? tips : ["تأكد من عدم استخدامها في أكثر من حساب."]
+          };
+        }
+        if (points >= 3) {
+          return {
+            level: "warn",
+            summary: "كلمة مرور متوسطة ويمكن تقويتها بشكل أفضل.",
+            tips
+          };
+        }
+        return {
+          level: "danger",
+          summary: "كلمة مرور ضعيفة وسهلة التخمين أو الكسر.",
+          tips
+        };
+      }
+
+      document.getElementById("checkPwdBtn").addEventListener("click", () => {
+        const val = pwdInput.value;
+        if (!val) {
+          renderScanResult("warn", "فحص كلمة مرور", "أدخل كلمة مرور أولاً أو اضغط على توليد كلمة قوية.", []);
+          return;
+        }
+        const res = evaluatePassword(val);
+        renderScanResult(res.level, "فحص كلمة مرور", res.summary, res.tips);
+      });
+
+      document.getElementById("genPwdBtn").addEventListener("click", () => {
+        const generated = generateStrongPassword(16);
+        pwdInput.value = generated;
+        renderScanResult("safe", "توليد كلمة مرور", "تم توليد كلمة مرور عشوائية قوية محلياً في متصفحك.", [
+          "الطول: 16 خانة تجمع بين الحروف الكبيرة والصغيرة والأرقام والرموز.",
+          "احفظها في مدير كلمات مرور موثوق ولا ترسلها عبر رسائل غير مشفرة."
+        ]);
+      });
+
+      // المستشار السيبراني الذكي
+      const aiPromptInput = document.getElementById("aiPromptInput");
+      const aiReplyText = document.getElementById("aiReplyText");
+
+      function generateLocalAdvisorReply(promptText) {
+        const q = promptText.trim();
+        if (!q) {
+          return "اكتب سؤالك أو الصق رسالة أو رابطاً مشبوهاً لأعطيك خطوات حماية عملية.";
+        }
+        if (q.includes("OTP") || q.includes("رمز") || q.includes("تحقق")) {
+          return "لا تشارك رمز OTP مع أي شخص مهما ادّعى أنه من البنك أو الدعم الفني أو التوظيف. إذا شاركته بالخطأ: غيّر كلمة المرور فوراً، وتواصل مع الجهة الرسمية لإيقاف الجلسات والبطاقات، وفعّل المصادقة الثنائية عبر تطبيق مصادقة.";
+        }
+        if (q.includes("رابط") || q.includes("تصيد") || q.includes("مشبوه")) {
+          return "إذا فتحت رابطاً مشبوهاً ولم تُدخل بياناتك فالأثر غالباً محدود، لكن يُستحسن فحص الجهاز وتحديث المتصفح. أما إذا أدخلت كلمة مرور أو بيانات بنكية: غيّر كلمة المرور فوراً من المصدر الرسمي، وراقب الحسابات، وتواصل مع البنك أو الجهة المعنية.";
+        }
+        if (q.includes("2FA") || q.includes("مصادقة")) {
+          return "لتأمين حساباتك بـ 2FA: فضّل تطبيق مصادقة (Authenticator App) أو مفاتيح المرور (Passkeys) على رسائل SMS، واحتفظ برموز الاسترداد في مكان آمن بعيداً عن الحساب.";
+        }
+        if (q.includes("واي فاي") || q.includes("Wi-Fi") || q.includes("عامة")) {
+          return "تجنّب العمليات البنكية أو إدخال كلمات المرور الحساسة على شبكات الواي فاي العامة غير الموثوقة، واعتمد على بيانات الجوال أو اتصال مشفر موثوق عند الحاجة.";
+        }
+        return "نصيحة حماية فورية: تحقق دائماً من مصدر الرسالة أو الرابط، ولا تشارك رموز التحقق أو كلمات المرور، واستخدم كلمات مرور مختلفة لكل حساب مع تفعيل المصادقة الثنائية.";
+      }
+
+      document.getElementById("runAiBtn").addEventListener("click", () => {
+        aiReplyText.textContent = generateLocalAdvisorReply(aiPromptInput.value);
+      });
+
+      document.getElementById("clearAiBtn").addEventListener("click", () => {
+        aiPromptInput.value = "";
+        aiReplyText.textContent = "تم المسح. اكتب سؤالك أو اختر سؤالاً سريعاً.";
+      });
+
+      document.querySelectorAll("[data-quick-q]").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const question = btn.getAttribute("data-quick-q") || "";
+          aiPromptInput.value = question;
+          aiReplyText.textContent = generateLocalAdvisorReply(question);
+        });
+      });
+
+      document.getElementById("askAiPwdBtn").addEventListener("click", () => {
+        const q = "كيف أختار كلمة مرور قوية وأحمي حساباتي من الاختراق؟";
+        aiPromptInput.value = q;
+        aiReplyText.textContent = generateLocalAdvisorReply(q);
+        document.getElementById("ai-assistant-section").scrollIntoView({ behavior: "smooth" });
+      });
+
+      document.getElementById("deepAiBtn").addEventListener("click", () => {
+        const q = lastReportText ? "حلل لي هذه النتيجة وأعطني خطة تصرف:
+" + lastReportText : "ما خطة التصرف الفورية عند رصد رابط أو رسالة احتيالية؟";
+        aiPromptInput.value = q;
+        aiReplyText.textContent = generateLocalAdvisorReply(q);
+        document.getElementById("ai-assistant-section").scrollIntoView({ behavior: "smooth" });
+      });
+
+      document.getElementById("copyReportBtn").addEventListener("click", async () => {
+        if (!lastReportText) return;
+        try {
+          await navigator.clipboard.writeText(lastReportText);
+          resultSummary.textContent = "تم نسخ تقرير الفحص إلى الحافظة.";
+        } catch {
+          resultSummary.textContent = "تعذر النسخ التلقائي؛ يمكنك تحديد النص ونسخه يدوياً.";
+        }
+      });
+
+      // بنك الأسئلة مع البحث والتصنيف
+      const faqBank = [
+        { cat: "accounts", catLabel: "الحسابات والـ OTP", q: "لماذا يُمنع مشاركة رمز التحقق (OTP) حتى مع موظف يدّعي الدعم الفني؟", a: "لأن رمز OTP يُرسل لإثبات ملكيتك للحساب أثناء تسجيل الدخول أو تنفيذ عملية حساسة، ومشاركته تمنح المهاجم صلاحية الدخول." },
+        { cat: "accounts", catLabel: "الحسابات والـ OTP", q: "ما الفرق بين المصادقة عبر SMS وتطبيق المصادقة (Authenticator)؟", a: "تطبيق المصادقة يولّد الرموز محلياً على جهازك ولا يعتمد على الرسائل النصية التي قد تتعرض لاعتراض أو تبديل شريحة." },
+        { cat: "phishing", catLabel: "الاحتيال والروابط", q: "كيف أكتشف رابطاً يحاول انتحال موقع رسمي؟", a: "راجع اسم النطاق الأساسي بعناية قبل علامة / الأولى، واحذر من الروابط التي تفرض استعجالاً أو تطلب بيانات حساسة فجأة." },
+        { cat: "phishing", catLabel: "الاحتيال والروابط", q: "ماذا أفعل إذا وصلتني رسالة تطلب دفع رسوم بسيطة لاستلام جائزة؟", a: "تجاهل الرسالة ولا تدفع أي مبالغ أو ترسل بيانات بطاقتك، فطلب الرسوم لاستلام جوائز مؤشر شائع للاحتيال." },
+        { cat: "network", catLabel: "الشبكات والواي فاي", q: "هل استخدام شبكة واي فاي عامة آمن لتسجيل الدخول إلى البريد أو الحسابات؟", a: "الأفضل تجنب الحسابات الحساسة على الشبكات العامة غير الموثوقة واستخدام شبكة شخصية أو بيانات الجوال." },
+        { cat: "devices", catLabel: "الأجهزة والتطبيقات", q: "لماذا يهم تحديث نظام التشغيل والتطبيقات باستمرار؟", a: "التحديثات تسد ثغرات أمنية مكتشفة في النظام أو التطبيق قبل أن يستغلها المهاجمون." }
+      ];
+
+      const faqListContainer = document.getElementById("faqListContainer");
+      const faqSearchInput = document.getElementById("faqSearchInput");
+      const faqCategorySelect = document.getElementById("faqCategorySelect");
+
+      function renderFaqList() {
+        const searchTerm = faqSearchInput.value.trim().toLowerCase();
+        const selectedCat = faqCategorySelect.value;
+
+        const filtered = faqBank.filter((item) => {
+          const matchesCat = selectedCat === "all" || item.cat === selectedCat;
+          const matchesText =
+            !searchTerm ||
+            item.q.toLowerCase().includes(searchTerm) ||
+            item.a.toLowerCase().includes(searchTerm) ||
+            item.catLabel.toLowerCase().includes(searchTerm);
+          return matchesCat && matchesText;
+        });
+
+        faqListContainer.innerHTML = "";
+        if (filtered.length === 0) {
+          const empty = document.createElement("p");
+          empty.style.color = "var(--muted)";
+          empty.textContent = "لا توجد أسئلة مطابقة لبحثك الحالي.";
+          faqListContainer.appendChild(empty);
+          return;
+        }
+
+        filtered.forEach((item) => {
+          const card = document.createElement("div");
+          card.className = "faq-item";
+
+          const catSpan = document.createElement("span");
+          catSpan.className = "faq-cat";
+          catSpan.textContent = item.catLabel;
+
+          const qTitle = document.createElement("h3");
+          qTitle.style.margin = "0";
+          qTitle.style.fontSize = "1rem";
+          qTitle.textContent = item.q;
+
+          const aPara = document.createElement("p");
+          aPara.style.margin = "0";
+          aPara.style.color = "var(--muted)";
+          aPara.style.fontSize = "0.9rem";
+          aPara.textContent = item.a;
+
+          const askBtn = document.createElement("button");
+          askBtn.type = "button";
+          askBtn.className = "btn";
+          askBtn.textContent = "اسأل الذكاء الاصطناعي";
+          askBtn.addEventListener("click", () => {
+            aiPromptInput.value = item.q;
+            aiReplyText.textContent = item.a;
+            document.getElementById("ai-assistant-section").scrollIntoView({ behavior: "smooth" });
+          });
+
+          card.append(catSpan, qTitle, aPara, askBtn);
+          faqListContainer.appendChild(card);
+        });
+      }
+
+      faqSearchInput.addEventListener("input", renderFaqList);
+      faqCategorySelect.addEventListener("change", renderFaqList);
+      renderFaqList();
+
+      document.querySelectorAll(".ask-ai-btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const question = btn.getAttribute("data-q") || "";
+          aiPromptInput.value = question;
+          aiReplyText.textContent = generateLocalAdvisorReply(question);
+          document.getElementById("ai-assistant-section").scrollIntoView({ behavior: "smooth" });
+        });
+      });
+
+      // قائمة التحقق ونسبة الحصانة
+      const immunityChecks = Array.from(document.querySelectorAll(".immunity-check"));
+      const immunityPercent = document.getElementById("immunityPercent");
+      const immunityBar = document.getElementById("immunityBar");
+
+      function updateImmunityScore() {
+        const checkedCount = immunityChecks.filter((c) => c.checked).length;
+        const pct = Math.round((checkedCount / immunityChecks.length) * 100);
+        immunityPercent.textContent = pct + "%";
+        immunityBar.style.width = pct + "%";
+      }
+
+      immunityChecks.forEach((chk) => chk.addEventListener("change", updateImmunityScore));
+      document.getElementById("resetChecklistBtn").addEventListener("click", () => {
+        immunityChecks.forEach((chk) => {
+          chk.checked = false;
+        });
+        updateImmunityScore();
+      });
+
+      // بوابة المالك ولوحة التحكم الآمنة نسبياً لواجهة ثابتة
+      const ownerModal = document.getElementById("ownerModal");
+      const ownerModalTitle = document.getElementById("ownerModalTitle");
+      const ownerLoginForm = document.getElementById("ownerLoginForm");
+      const ownerDashboard = document.getElementById("ownerDashboard");
+      const ownerLoginError = document.getElementById("ownerLoginError");
+
+      function syncOwnerModalView() {
+        if (isAuthenticated()) {
+          ownerModalTitle.textContent = "لوحة التحكم";
+          ownerLoginForm.classList.add("hidden");
+          ownerDashboard.classList.remove("hidden");
+        } else {
+          ownerModalTitle.textContent = "بوابة الدخول";
+          ownerLoginForm.classList.remove("hidden");
+          ownerDashboard.classList.add("hidden");
+        }
+      }
+
+      function openOwnerModal() {
+        ownerLoginError.textContent = "";
+        syncOwnerModalView();
+        ownerModal.classList.add("open");
+      }
+
+      function closeOwnerModal() {
+        ownerModal.classList.remove("open");
+      }
+
+      document.getElementById("openOwnerPortalBtn").addEventListener("click", openOwnerModal);
+      document.getElementById("footerOwnerBtn").addEventListener("click", openOwnerModal);
+      document.getElementById("closeOwnerModalBtn").addEventListener("click", closeOwnerModal);
+      ownerModal.addEventListener("click", (e) => {
+        if (e.target === ownerModal) closeOwnerModal();
+      });
+
+      ownerLoginForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const now = Date.now();
+        if (now < lockUntil) {
+          const left = Math.ceil((lockUntil - now) / 1000);
+          ownerLoginError.textContent = `تم إيقاف المحاولات مؤقتاً. حاول بعد ${left} ثانية.`;
+          return;
+        }
+
+        const usernameVal = document.getElementById("ownerUsername").value.trim();
+        const passwordVal = document.getElementById("ownerPassword").value;
+        const inputHash = await sha256Hex(passwordVal);
+
+        if (usernameVal.length > 0 && inputHash === getActiveOwnerHash()) {
+          failedAttempts = 0;
+          sessionStorage.setItem(SESSION_AUTH_KEY, "true");
+          document.getElementById("ownerPassword").value = "";
+          ownerLoginError.textContent = "";
+          syncOwnerModalView();
+          return;
+        }
+
+        failedAttempts += 1;
+        if (failedAttempts >= 5) {
+          lockUntil = now + 30000;
+          failedAttempts = 0;
+          ownerLoginError.textContent = "تم تجاوز الحد المسموح. المحاولات مقفلة لمدة 30 ثانية.";
+        } else {
+          ownerLoginError.textContent = "بيانات الدخول غير صحيحة.";
+        }
+      });
+
+      document.getElementById("ownerLogoutBtn").addEventListener("click", () => {
+        sessionStorage.removeItem(SESSION_AUTH_KEY);
+        syncOwnerModalView();
+      });
+
+      const newOwnerPass = document.getElementById("newOwnerPass");
+      const passChangeMsg = document.getElementById("passChangeMsg");
+
+      document.getElementById("genOwnerPassBtn").addEventListener("click", () => {
+        newOwnerPass.value = generateStrongPassword(16);
+        passChangeMsg.textContent = "تم توليد رمز قوي. اضغط حفظ لتحديث بصمة التجزئة.";
+      });
+
+      document.getElementById("saveOwnerPassBtn").addEventListener("click", async () => {
+        if (!isAuthenticated()) return;
+        const val = newOwnerPass.value.trim();
+        if (val.length < 8) {
+          passChangeMsg.textContent = "يجب أن يكون رمز الدخول 8 أحرف على الأقل.";
+          return;
+        }
+        const nextHash = await sha256Hex(val);
+        localStorage.setItem(HASH_STORAGE_KEY, nextHash);
+        newOwnerPass.value = "";
+        passChangeMsg.textContent = "تم تحديث بصمة رمز الدخول محلياً بنجاح.";
+      });
+
+      // التحكم في المساحات الإعلانية بأمان
+      const adFileInput = document.getElementById("adFileInput");
+      const adFileStatus = document.getElementById("adFileStatus");
+      const adSaveMsg = document.getElementById("adSaveMsg");
+
+      const allowedMimeTypes = new Set([
+        "image/png",
+        "image/jpeg",
+        "image/webp",
+        "image/gif",
+        "video/mp4",
+        "video/webm",
+        "application/pdf"
+      ]);
+
+      adFileInput.addEventListener("change", () => {
+        const file = adFileInput.files && adFileInput.files[0];
+        if (!file) {
+          uploadedMediaDataUrl = "";
+          uploadedMediaMime = "";
+          uploadedMediaName = "";
+          adFileStatus.textContent = "لم يتم اختيار ملف بعد.";
+          return;
+        }
+
+        if (!allowedMimeTypes.has(file.type)) {
+          adFileInput.value = "";
+          uploadedMediaDataUrl = "";
+          adFileStatus.textContent = "نوع الملف غير مدعوم. يُسمح بالصور وGIF والفيديو القصير وPDF فقط.";
+          return;
+        }
+
+        if (file.size > 2 * 1024 * 1024) {
+          adFileInput.value = "";
+          uploadedMediaDataUrl = "";
+          adFileStatus.textContent = "حجم الملف أكبر من 2 ميجابايت لتفادي ثقل الصفحة.";
+          return;
+        }
+
+        const reader = new FileReader();
+        reader.onload = () => {
+          uploadedMediaDataUrl = typeof reader.result === "string" ? reader.result : "";
+          uploadedMediaMime = file.type;
+          uploadedMediaName = file.name;
+          adFileStatus.textContent = `تم اختيار الملف: ${file.name}`;
+        };
+        reader.readAsDataURL(file);
+      });
+
+      function applyAdConfig(config) {
+        const safeConfig = config || {
+          title: "مساحة إعلانية",
+          desc: "تواصل معنا لحجز مساحة إعلانية آمنة ومتوافقة.",
+          mediaUrl: "",
+          mediaDataUrl: "",
+          mediaMime: "",
+          mediaName: "",
+          targetUrl: DEFAULT_CTA_URL,
+          zone: "all"
+        };
+
+        const safeTarget = sanitizeHttpUrl(safeConfig.targetUrl, DEFAULT_CTA_URL);
+        const safeMediaUrl = sanitizeHttpUrl(safeConfig.mediaUrl, "");
+
+        document.querySelectorAll(".ad-slot").forEach((slot) => {
+          const zoneName = slot.getAttribute("data-ad-zone");
+          const shouldShow = safeConfig.zone === "all" || safeConfig.zone === zoneName;
+          slot.parentElement.classList.toggle("hidden", !shouldShow);
+
+          const titleEl = slot.querySelector(".ad-title");
+          const descEl = slot.querySelector(".ad-desc");
+          const visualEl = slot.querySelector(".ad-visual");
+          const ctaEl = slot.querySelector(".ad-cta");
+
+          if (titleEl) titleEl.textContent = safeConfig.title || "مساحة إعلانية";
+          if (descEl) descEl.textContent = safeConfig.desc || "";
+          if (ctaEl) {
+            ctaEl.href = safeTarget;
+            ctaEl.rel = "noopener noreferrer nofollow";
+          }
+
+          if (visualEl) {
+            visualEl.innerHTML = "";
+            if (safeConfig.mediaDataUrl && allowedMimeTypes.has(safeConfig.mediaMime)) {
+              if (safeConfig.mediaMime.startsWith("image/")) {
+                const img = document.createElement("img");
+                img.src = safeConfig.mediaDataUrl;
+                img.alt = safeConfig.title || "إعلان";
+                img.className = "ad-media-preview";
+                visualEl.appendChild(img);
+              } else if (safeConfig.mediaMime.startsWith("video/")) {
+                const vid = document.createElement("video");
+                vid.src = safeConfig.mediaDataUrl;
+                vid.controls = true;
+                vid.muted = true;
+                vid.className = "ad-media-preview";
+                visualEl.appendChild(vid);
+              } else if (safeConfig.mediaMime === "application/pdf") {
+                const pdfLink = document.createElement("a");
+                pdfLink.href = safeConfig.mediaDataUrl;
+                pdfLink.target = "_blank";
+                pdfLink.rel = "noopener noreferrer";
+                pdfLink.className = "btn";
+                pdfLink.textContent = "عرض ملف PDF المرفق";
+                visualEl.appendChild(pdfLink);
+              }
+            } else if (safeMediaUrl) {
+              const img = document.createElement("img");
+              img.src = safeMediaUrl;
+              img.alt = safeConfig.title || "إعلان";
+              img.className = "ad-media-preview";
+              visualEl.appendChild(img);
+            }
+          }
+        });
+      }
+
+      document.getElementById("saveAdBtn").addEventListener("click", () => {
+        if (!isAuthenticated()) return;
+
+        const rawMediaUrl = document.getElementById("adMediaUrlInput").value.trim();
+        if (rawMediaUrl && !sanitizeHttpUrl(rawMediaUrl, "")) {
+          adSaveMsg.textContent = "رابط الوسائط غير صالح؛ يُسمح فقط بروابط تبدأ بـ https:// أو http://.";
+          return;
+        }
+
+        const rawTarget = document.getElementById("adTargetUrlInput").value.trim();
+        if (rawTarget && !sanitizeHttpUrl(rawTarget, "")) {
+          adSaveMsg.textContent = "رابط التوجيه غير صالح؛ تم رفض الرابط غير الآمن.";
+          return;
+        }
+
+        const config = {
+          title: document.getElementById("adTitleInput").value.trim() || "مساحة إعلانية",
+          desc: document.getElementById("adDescInput").value.trim() || "إعلان متاح عبر منصة درع الأمان الذكي.",
+          mediaUrl: sanitizeHttpUrl(rawMediaUrl, ""),
+          mediaDataUrl: uploadedMediaDataUrl,
+          mediaMime: uploadedMediaMime,
+          mediaName: uploadedMediaName,
+          targetUrl: sanitizeHttpUrl(rawTarget, DEFAULT_CTA_URL),
+          zone: document.getElementById("adZoneSelect").value
+        };
+
+        try {
+          localStorage.setItem(AD_STORAGE_KEY, JSON.stringify(config));
+          applyAdConfig(config);
+          adSaveMsg.textContent = "تم حفظ وتحديث الإعلان بنجاح.";
+        } catch {
+          adSaveMsg.textContent = "تعذر الحفظ؛ قد يكون حجم الملف المرفوع كبيراً على التخزين المحلي.";
+        }
+      });
+
+      document.getElementById("clearAdBtn").addEventListener("click", () => {
+        if (!isAuthenticated()) return;
+        localStorage.removeItem(AD_STORAGE_KEY);
+        uploadedMediaDataUrl = "";
+        uploadedMediaMime = "";
+        uploadedMediaName = "";
+        adFileInput.value = "";
+        adFileStatus.textContent = "لم يتم اختيار ملف بعد.";
+        document.getElementById("adTitleInput").value = "";
+        document.getElementById("adDescInput").value = "";
+        document.getElementById("adMediaUrlInput").value = "";
+        document.getElementById("adTargetUrlInput").value = DEFAULT_CTA_URL;
+        document.getElementById("adZoneSelect").value = "all";
+        applyAdConfig(null);
+        adSaveMsg.textContent = "تم تفريغ إعدادات الإعلان وإرجاعها للوضع الافتراضي.";
+      });
+
+      // تحميل الإعلان المحفوظ عند بدء الصفحة
+      try {
+        const savedAdRaw = localStorage.getItem(AD_STORAGE_KEY);
+        if (savedAdRaw) {
+          applyAdConfig(JSON.parse(savedAdRaw));
+        }
+      } catch {
+        applyAdConfig(null);
+      }
+    })();
+  </script>
+</body>
+</html>
